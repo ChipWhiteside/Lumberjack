@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Tree
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Player
+  - Ground
+  - Foreground
+  - Tree
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Ground
+    uniqueID: 50971941
+    locked: 0
+  - name: Background
+    uniqueID: 1896932633
+    locked: 0
+  - name: Player
+    uniqueID: 4205577587
+    locked: 0
+  - name: Foreground
+    uniqueID: 2687356901
+    locked: 0
+  - name: Inventory Background
+    uniqueID: 1089321655
+    locked: 0
+  - name: Inventory Art
+    uniqueID: 1457247213
+    locked: 0
+  - name: Inventory Boxes
+    uniqueID: 3737366277
+    locked: 0
+  - name: Inventory Items
+    uniqueID: 3663816027
+    locked: 0
