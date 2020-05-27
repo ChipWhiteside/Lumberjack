@@ -34,8 +34,6 @@ public class Tree : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("Playerfeet: " + playerFeet.transform.position.y);
-        //Debug.Log("Stump: " + stump.transform.position.y);
         if (playerFeet.transform.position.y < transform.position.y)
         {
             //Debug.Log("Background");

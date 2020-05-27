@@ -5,6 +5,20 @@ TagManager:
   serializedVersion: 2
   tags:
   - Tree
+  - Armor Sprite
+  - Head Armor Sprite
+  - Chest Armor Sprite
+  - Stomach Armor Sprite
+  - L Shoulder Armor Sprite
+  - R Shoulder Armor Sprite
+  - L Forearm Armor Sprite
+  - R Forearm Armor Sprite
+  - L Hand Armor Sprite
+  - R Hand Armor Sprite
+  - L Thigh Armor Sprite
+  - R Thigh Armor Sprite
+  - L Foot Armor Sprite
+  - R Food Armor Sprite
   layers:
   - Default
   - TransparentFX
@@ -18,8 +32,8 @@ TagManager:
   - Ground
   - Foreground
   - Tree
-  - 
-  - 
+  - Obstacle
+  - Item
   - 
   - 
   - 

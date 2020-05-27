@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemPickup : MonoBehaviour
+[RequireComponent(typeof(SpriteRenderer))]
+public class ItemManager : MonoBehaviour
 {
 
     public Item item;
@@ -14,18 +15,6 @@ public class ItemPickup : MonoBehaviour
             Debug.Log("Collided with player");
             PickUp();
         }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     void PickUp()

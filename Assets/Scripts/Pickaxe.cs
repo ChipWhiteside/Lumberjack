@@ -16,7 +16,6 @@ public class Pickaxe : Tool
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("pickaxe started");
         GameEvents.current.onActionButtonPressed += ActionButtonPressed;
         toolid = 1;
     }
