@@ -5,47 +5,66 @@ using UnityEngine;
 public class Tree : MonoBehaviour
 {
 
-    public GameObject playerFeet;
+   // public GameObject playerFeet;
 
-    public int treeid;
+    //public int treeid;
+    public Transform player;
 
     private int age = 0;
     private GameObject stump;
     private GameObject stumpBottom;
     private GameObject tree;
+    private SpriteRenderer stumpSprite;
+    private SpriteRenderer treeSprite;
 
-    private string stumpSprite = "Assets/2D Sprites/Pine Stump.png";
-
-    // Start is called before the first frame update
     void Start()
     {
         GameEvents.current.onTreeGrow += onTreeGrow;
 
         tree = this.transform.GetChild(0).gameObject;
         stump = this.transform.GetChild(1).gameObject;
-        //stumpBottom = stump.transform.GetChild(0).gameObject;
 
-        stump.GetComponent<SpriteRenderer>().sortingOrder = tree.GetComponent<SpriteRenderer>().sortingOrder - 1;
-        //Debug.Log("tree: " + tree.name);
-        //Debug.Log("stump: " + stump.name);
-        //Debug.Log("stumpBottom: " + stumpBottom.name);
+        stumpSprite = stump.GetComponent<SpriteRenderer>();
+        treeSprite = tree.GetComponent<SpriteRenderer>();
+
+        stumpSprite.sortingOrder = treeSprite.sortingOrder - 1;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (playerFeet.transform.position.y < transform.position.y)
+
+        if (player.position.y < transform.position.y)
         {
-            //Debug.Log("Background");
-            stump.GetComponent<SpriteRenderer>().sortingLayerName = "Background";
-            tree.GetComponent<SpriteRenderer>().sortingLayerName = "Background";
-        }
-        if (playerFeet.transform.position.y >= transform.position.y)
+            if (stump.GetComponent<SpriteRenderer>().sortingOrder > 0)
+            {
+                stumpSprite.sortingOrder -= 1000;
+                treeSprite.sortingOrder -= 1000;
+            }
+        } else
         {
-            //Debug.Log("Foreground");
-            stump.GetComponent<SpriteRenderer>().sortingLayerName = "Foreground";
-            tree.GetComponent<SpriteRenderer>().sortingLayerName = "Foreground";
+            if (stump.GetComponent<SpriteRenderer>().sortingOrder <= 0)
+            {
+                stumpSprite.sortingOrder += 1000;
+                treeSprite.sortingOrder += 1000;
+            }
         }
+        ////FIX THIS IT IS SUPER INEFFICIENT
+        //if (PlayerController.instance.player.transform.position.y < transform.position.y)
+        //{
+        //    if (stump.GetComponent<SpriteRenderer>().sortingOrder > 0)
+        //    {
+        //        stump.GetComponent<SpriteRenderer>().sortingOrder -= 1000;
+        //        tree.GetComponent<SpriteRenderer>().sortingOrder -= 1000;
+        //    }
+        //}
+        //if (PlayerController.instance.player.transform.position.y >= transform.position.y)
+        //{
+        //    if (stump.GetComponent<SpriteRenderer>().sortingOrder < 0)
+        //    {
+        //        stump.GetComponent<SpriteRenderer>().sortingOrder += 1000;
+        //        tree.GetComponent<SpriteRenderer>().sortingOrder += 1000;
+        //    }
+        //}
     }
 
     void FindNearestTree()
@@ -61,6 +80,6 @@ public class Tree : MonoBehaviour
 
     private void ChopDownTree()
     {
-        tree.GetComponent<SpriteRenderer>().sprite = Resources.Load(stumpSprite) as Sprite;
+        //tree.GetComponent<SpriteRenderer>().sprite = Resources.Load(stumpSprite) as Sprite;
     }
 }

@@ -21,15 +21,17 @@ public class PlayerAnimationController : MonoBehaviour
 
     public Animator animator;
 
-    public float movespeed;
+    //public float movespeed;
     public Vector2 dirFacing;
+    public Vector2 dirMoving;
     public int itemAnimID;
 
     void Start()
     {
         animator = GetComponent<Animator>();
-        movespeed = 0;
+        //movespeed = 0;
         dirFacing = Vector2.zero;
+        dirMoving = Vector2.zero;
         itemAnimID = -1;
     }
 
@@ -40,9 +42,14 @@ public class PlayerAnimationController : MonoBehaviour
 
     public void UpdateAnimations()
     {
-        animator.SetFloat("Move Speed", movespeed);
-        animator.SetFloat("Direction Facing X", dirFacing.x);
-        animator.SetFloat("Direction Facing Y", dirFacing.y);
+        //animator.SetFloat("Move Speed", movespeed);
+
+        animator.SetInteger("Direction Facing X", (int) dirFacing.x);
+        animator.SetInteger("Direction Facing Y", (int) dirFacing.y);
+
+        animator.SetInteger("Direction Moving X", (int) dirMoving.x);
+        animator.SetInteger("Direction Moving Y", (int) dirMoving.y);
+
         animator.SetInteger("Item Animation ID", itemAnimID);
     }
 }
