@@ -12,7 +12,7 @@ public class SheathInventorySlot : MonoBehaviour
 
     public void Start()
     {
-        GameEvents.current.onItemDropButton += OnRemoveButton;
+        //GameEvents.instance.onItemDropButton += OnRemoveButton;
     }
 
     public void AddItem(Item newItem)
@@ -50,7 +50,7 @@ public class SheathInventorySlot : MonoBehaviour
             if (item != null)
             {
                 Debug.Log(item.name + " dropped");
-                Inventory.instance.RemoveItem(item);
+                //Inventory.instance.RemoveItem(item);
             }
         }
     }
@@ -62,7 +62,7 @@ public class SheathInventorySlot : MonoBehaviour
             if (item != null)
             {
                 Debug.Log(item.name + " equipped");
-                Inventory.instance.EquipItem(item);
+                //Inventory.instance.EquipItem(item);
 
             }
         }
@@ -80,10 +80,28 @@ public class SheathInventorySlot : MonoBehaviour
         if (item != null)
         {
             Debug.Log("Selected " + item.name + " (slot " + slotid + " of sheath inventory)");
-            Inventory.instance.invSelected = 1;
-            Inventory.instance.invSlotSelected = slotid;
+            //Inventory.instance.invSelected = 1;
+            //Inventory.instance.invSlotSelected = slotid;
         }
         else
             Debug.Log("Sheath slot empty");
+    }
+
+    public void StartedHover()
+    {
+        if (item != null)
+        {
+            Debug.Log("Selected " + item.name + " (slot " + slotid + " of backpack)");
+            //Inventory.instance.invHovered = 1;
+            //Inventory.instance.invSlotHovered = slotid;
+            //Inventory.instance.itemHovered = item;
+        }
+        else
+            Debug.Log("Packpack slot empty");
+    }
+
+    public void StoppedHover()
+    {
+        Debug.Log("Stopped hover on sheath slot " + slotid);
     }
 }

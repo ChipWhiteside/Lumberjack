@@ -2,35 +2,43 @@
 
 public class InventoryUI : MonoBehaviour
 {
-    public Transform backpackPanel;
-    public Transform characterPanel;
-    public Transform equipmentPickupPanel;
-    public GameObject inventoryUI;
+    private Transform backpackPanel;
+    private Transform equipmentPickupPanel;
+    private Transform characterPanel;
 
-    Inventory inventory;
+    private InventorySlot[] slots;
+    private SheathInventorySlot[] sheathSlots;
+    private EquipmentPickupInventorySlot[] equipmentSlots;
 
-    InventorySlot[] slots;
-    SheathInventorySlot[] sheathSlots;
-    EquipmentPickupInventorySlot[] equipmentSlots;
+    private void Awake()
+    {
+        GameEvents.instance.onInvMenuPressed += InventoryPressed;   
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        inventory = Inventory.instance;
-        GameEvents.current.onInventoryItemChanged += UpdateUI;
 
-        GameEvents.current.onInventoryPressed += InventoryPressed;
+        GameEvents.instance.onUpdateInvUI += UpdateUI;
 
-        inventoryUI.SetActive(false);
+        backpackPanel = transform.Find("Backpack Panel");
+        equipmentPickupPanel = transform.Find("Equipment Pickup Panel");
+        characterPanel = transform.Find("Character Panel");
+
+        //GameEvents.instance.onInventoryItemChanged += UpdateUI;
+
+        //GameEvents.instance.onInventoryPressed += InventoryPressed;
+
+        gameObject.SetActive(false);    // Sets the inventory UI to active
 
         slots = backpackPanel.GetComponentsInChildren<InventorySlot>();
         sheathSlots = characterPanel.GetComponentsInChildren<SheathInventorySlot>();
         equipmentSlots = equipmentPickupPanel.GetComponentsInChildren<EquipmentPickupInventorySlot>();
 
-        foreach (EquipmentPickupInventorySlot eslots in equipmentSlots)
-            eslots.gameObject.SetActive(false);
-        sheathSlots[3].gameObject.SetActive(false);
-        sheathSlots[5].gameObject.SetActive(false);
+        //foreach (EquipmentPickupInventorySlot eslots in equipmentSlots)
+        //    eslots.gameObject.SetActive(false);
+        //sheathSlots[3].gameObject.SetActive(false);
+        //sheathSlots[5].gameObject.SetActive(false);
 
     }
 
@@ -67,57 +75,66 @@ public class InventoryUI : MonoBehaviour
     void UpdateUI()
     {
         Debug.Log("Updating UI");
+
+        //Updating backpack
         for (int i = 0; i < slots.Length; i++)
         {
-            if (i < inventory.items.Count)
+            if (i < Inventory.instance.items.Count)
             {
-                slots[i].AddItem(inventory.items[i]);
-            } else
-            {
-                slots[i].ClearSlot();
-            }
-        }
-
-        for (int i = 0; i < sheathSlots.Length; i++)
-        {
-            if (i < inventory.sheathItems.Count)
-            {
-                if (i.Equals(2))
-                    sheathSlots[3].gameObject.SetActive(true);
-                if (i.Equals(4))
-                    sheathSlots[5].gameObject.SetActive(true);
-                sheathSlots[i].AddItem(inventory.sheathItems[i]);
+                //slots[i].AddItem(inventory.items[i]);
+                GameEvents.instance.AddInvSlot(i, Inventory.instance.items[i]);
+                //GameEvents.instance.PickupItem(inventory.items[i]);
             }
             else
             {
-                sheathSlots[i].ClearSlot();
+                //slots[i].ClearSlot();
+                GameEvents.instance.ClearInvSlot(i);
             }
         }
-
-        for (int i = 0; i < equipmentSlots.Length; i++)
-        {
-            if (i < inventory.equipmentPickupItems.Count)
-            {
-                equipmentSlots[i].gameObject.SetActive(true);
-                equipmentSlots[i].AddItem(inventory.equipmentPickupItems[i]);
-            }
-            else
-            {
-                equipmentSlots[i].ClearSlot();
-                equipmentSlots[i].gameObject.SetActive(false);
-            }
-        }
+        //// Updating sheath
+        //for (int i = 0; i < sheathSlots.Length; i++)
+        //{
+        //    if (i < inventory.sheathItems.Count)
+        //    {
+        //        if (i.Equals(2))
+        //            sheathSlots[3].gameObject.SetActive(true);
+        //        if (i.Equals(4))
+        //            sheathSlots[5].gameObject.SetActive(true);
+        //        sheathSlots[i].AddItem(inventory.sheathItems[i]);
+        //    }
+        //    else
+        //    {
+        //        sheathSlots[i].ClearSlot();
+        //    }
+        //}
+        //// Updating equipment pickup
+        //for (int i = 0; i < equipmentSlots.Length; i++)
+        //{
+        //    if (i < inventory.equipmentPickupItems.Count)
+        //    {
+        //        equipmentSlots[i].gameObject.SetActive(true);
+        //        equipmentSlots[i].AddItem(inventory.equipmentPickupItems[i]);
+        //    }
+        //    else
+        //    {
+        //        equipmentSlots[i].ClearSlot();
+        //        equipmentSlots[i].gameObject.SetActive(false);
+        //    }
+        //}
     }
 
     void InventoryPressed()
     {
-        inventoryUI.SetActive(!inventoryUI.activeSelf);
-        if (inventoryUI.activeSelf)
+        //when opened, if its because of an item, auto hover that item, otherwise hover the hands
+
+        gameObject.SetActive(!gameObject.activeSelf);
+        if (gameObject.activeSelf)
         {
-            GameEvents.current.InventoryOpened();
-        } else
+            GameEvents.instance.InvMenuOpen();
+        }
+        else
         {
-            GameEvents.current.InventoryClosed();
+            GameEvents.instance.InvMenuClose();
             //if equipment slots isnt empty, drop all the remaining items
         }
     }

@@ -5,6 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public PlayerInputActions actions;
+
+    private void Awake()
+    {
+        actions = new PlayerInputActions();
+
+        actions.Player.Inventory.performed += _ => Inventory();
+    }
+
+
+    void Inventory()
+    {
+        Debug.Log("Inventory pressed");
+    }
     //public int day;
     //public float time = 710.0f;
     //public Canvas canvas;
@@ -66,7 +80,7 @@ public class GameManager : MonoBehaviour
     //    //    }
     //    //}
 
-        
+
     //}
 
     //public void SpawnTree(int treeid, Vector2 pos)

@@ -19,9 +19,8 @@ public class PlayerAnimationController : MonoBehaviour
     }
     #endregion
 
-    public Animator animator;
+    private Animator animator;
 
-    //public float movespeed;
     public Vector2 dirFacing;
     public Vector2 dirMoving;
     public int itemAnimID;
@@ -29,7 +28,6 @@ public class PlayerAnimationController : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        //movespeed = 0;
         dirFacing = Vector2.zero;
         dirMoving = Vector2.zero;
         itemAnimID = -1;
@@ -40,10 +38,8 @@ public class PlayerAnimationController : MonoBehaviour
         UpdateAnimations();
     }
 
-    public void UpdateAnimations()
+    void UpdateAnimations()
     {
-        //animator.SetFloat("Move Speed", movespeed);
-
         animator.SetInteger("Direction Facing X", (int) dirFacing.x);
         animator.SetInteger("Direction Facing Y", (int) dirFacing.y);
 

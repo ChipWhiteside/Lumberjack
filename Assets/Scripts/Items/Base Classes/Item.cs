@@ -4,8 +4,7 @@
 public class Item : ScriptableObject
 {
     new public string name = "New Item";
-    public float itemRadius = 1f;
-    //public int itemID = 0;
+    //public float itemRadius = 1f;
     public float weightModifier = 0;
     public Sprite icon = null;
 
@@ -21,13 +20,13 @@ public class Item : ScriptableObject
         Debug.Log("Using " + name);
     }
 
-    public bool PickupSuccessful()
-    {
-        return true;
-    }
+    //public bool PickupSuccessful()
+    //{
+    //    return true;
+    //}
 
-    public virtual int EquipSlot()
-    {
-        return -1;
-    }
+    //public virtual int EquipSlot()
+    //{
+    //    return -1;
+    //}
 }

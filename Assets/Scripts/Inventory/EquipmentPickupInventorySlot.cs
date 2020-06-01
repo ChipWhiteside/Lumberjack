@@ -12,8 +12,8 @@ public class EquipmentPickupInventorySlot : MonoBehaviour
 
     public void Start()
     {
-        GameEvents.current.onItemDropButton += OnRemoveButton;
-        GameEvents.current.onItemEquipButton += OnEquipButton;
+        //GameEvents.instance.onItemDropButton += OnRemoveButton;
+        //GameEvents.instance.onItemEquipButton += OnEquipButton;
     }
 
     public void AddItem(Item newItem)
@@ -32,7 +32,9 @@ public class EquipmentPickupInventorySlot : MonoBehaviour
 
     public void ClearSlot()
     {
-        item = null;
+        Item placeholderItem = (Item)Item.CreateInstance("Item");
+        placeholderItem.name = "Placeholder Item";
+        item = placeholderItem;
 
         icon.sprite = null;
         icon.enabled = false;
@@ -45,7 +47,7 @@ public class EquipmentPickupInventorySlot : MonoBehaviour
             if (item != null)
             {
                 Debug.Log(item.name + " dropped");
-                Inventory.instance.RemoveItem(item);
+                //Inventory.instance.RemoveItem(item);
             }
         }
     }
@@ -57,7 +59,7 @@ public class EquipmentPickupInventorySlot : MonoBehaviour
             if (item != null)
             {
                 Debug.Log(item.name + " equipped");
-                Inventory.instance.EquipItem(item);
+                //Inventory.instance.EquipItem(item);
             }
         }
     }
@@ -67,10 +69,28 @@ public class EquipmentPickupInventorySlot : MonoBehaviour
         if (item != null)
         {
             Debug.Log("Selected " + item.name + " (slot " + slotid + " of equipment pickup inv.)");
-            Inventory.instance.invSelected = 2;
-            Inventory.instance.invSlotSelected = slotid;
+            //Inventory.instance.invSelected = 2;
+            //Inventory.instance.invSlotSelected = slotid;
         }
         else
             Debug.Log("Equipment pickup slot empty");
+    }
+
+    public void StartedHover()
+    {
+        if (item != null)
+        {
+            Debug.Log("Selected " + item.name + " (slot " + slotid + " of backpack)");
+            //Inventory.instance.invHovered = 2;
+            //Inventory.instance.invSlotHovered = slotid;
+            //Inventory.instance.itemHovered = item;
+        }
+        else
+            Debug.Log("Packpack slot empty");
+    }
+
+    public void StoppedHover()
+    {
+        Debug.Log("Stopped hover on quipment pickup slot " + slotid);
     }
 }

@@ -27,9 +27,9 @@ public class Sword : Weapon
         Debug.Log("Using " + name + " | Weapon | Sword");
     }
 
-    public override int EquipSlot()
-    {
-        Debug.Log("Equipping " + name);
-        return 5; //chest, hands, back, back, hip, hip
-    }
+    //public override int EquipSlot()
+    //{
+    //    Debug.Log("Equipping " + name);
+    //    return 5; //chest, hands, back, back, hip, hip
+    //}
 }

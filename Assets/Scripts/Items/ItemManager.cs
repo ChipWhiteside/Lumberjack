@@ -8,36 +8,62 @@ public class ItemManager : MonoBehaviour
 {
 
     public Item item;
-    public SpriteRenderer sr;
-    public CircleCollider2D ccollider;
+    private SpriteRenderer sr;
+    private CircleCollider2D ccollider;
 
     private void Awake()
     {
-        sr = GetComponent<SpriteRenderer>();
-        ccollider = GetComponent<CircleCollider2D>();
+        SetupItem();
+    }
 
-        sr.sprite = item.icon;
-        sr.sortingLayerName = "Player";
-        ccollider.radius = item.itemRadius;
-        ccollider.isTrigger = true;
+    private void Start()
+    {
+        GameEvents.instance.onItemInteract += Interact;
+        GameEvents.instance.onPickupItemSuccess += PickupSuccess;
+        GameEvents.instance.onPickupItemFail += PickupFail;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.name == "Player")
         {
-            Debug.Log("Collided with player");
-            PickUp();
+            Debug.Log(item.name + " collided with player");
+            Interact();
         }
+    }
+
+    void Interact()
+    {
+        PickUp();
     }
 
     void PickUp()
     {
-        Debug.Log("Pickup " + item.name);
-        bool itemAdded = Inventory.instance.AddItem(item);
-        if (itemAdded)
-        {
-            Destroy(gameObject);
-        }
+        Debug.Log("Picking up " + item.name);
+        GameEvents.instance.PickupItem(item);
+    }
+
+    void PickupSuccess()
+    {
+        Destroy(gameObject);
+        Debug.Log("Picked up " + item.name);
+    }
+
+    void PickupFail()
+    {
+        Debug.Log("Can't pickup " + item.name);
+    }
+
+    public void SetupItem()
+    {
+        Debug.Log("Setting up " + item.name);
+
+        sr = GetComponent<SpriteRenderer>();
+        ccollider = GetComponent<CircleCollider2D>();
+
+        sr.sprite = item.icon;
+        sr.sortingLayerName = "Player";
+        //ccollider.radius = item.itemRadius;
+        ccollider.isTrigger = true;
     }
 }

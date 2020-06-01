@@ -10,10 +10,10 @@ public class Tool : Equipment
     }
     public ToolType toolType;
 
-    public override int EquipSlot()
-    {
-        return 2; //chest, hands, back, back, hip, hip
-    }
+    //public override int EquipSlot()
+    //{
+    //    return 2; //chest, hands, back, back, hip, hip
+    //}
 }
 
 public enum ToolType { Axe, Pickaxe }

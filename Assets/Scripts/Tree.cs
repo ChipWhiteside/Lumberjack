@@ -5,7 +5,7 @@ using UnityEngine;
 public class Tree : MonoBehaviour
 {
 
-   // public GameObject playerFeet;
+    // public GameObject playerFeet;
 
     //public int treeid;
     public Transform player;
@@ -19,7 +19,7 @@ public class Tree : MonoBehaviour
 
     void Start()
     {
-        GameEvents.current.onTreeGrow += onTreeGrow;
+        //GameEvents.instance.onTreeGrow += onTreeGrow;
 
         tree = this.transform.GetChild(0).gameObject;
         stump = this.transform.GetChild(1).gameObject;
@@ -32,7 +32,6 @@ public class Tree : MonoBehaviour
 
     void Update()
     {
-
         if (player.position.y < transform.position.y)
         {
             if (stump.GetComponent<SpriteRenderer>().sortingOrder > 0)
